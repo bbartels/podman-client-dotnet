@@ -128,6 +128,26 @@ public class PodmanClientApiTests {
   }
 
   [Fact]
+  public async Task PushArtifactAsync_UsesCompatibleRetryDelayQueryParameters() {
+    var cancellationToken = TestContext.Current.CancellationToken;
+    using var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) {
+      Content = new StringContent("{\"ArtifactDigest\":\"sha256:def\"}", Encoding.UTF8, "application/json"),
+    });
+    using var httpClient = new HttpClient(handler);
+    var client = new PodmanClient(NullLogger<PodmanClient>.Instance, "http://localhost:8080", httpClient);
+
+    var result = await client.PushArtifactAsync(
+      "quay.io/example/artifact:latest",
+      retryDelay: "7s",
+      cancellationToken: cancellationToken
+    );
+
+    Assert.True(result.IsSuccess);
+    Assert.Equal("7s", GetQueryValue(handler.LastRequest!.RequestUri!, "retryDelay"));
+    Assert.Equal("7s", GetQueryValue(handler.LastRequest.RequestUri!, "retrydelay"));
+  }
+
+  [Fact]
   public async Task RemoveArtifactsAsync_RepeatsArtifactQueryParameters() {
     var cancellationToken = TestContext.Current.CancellationToken;
     using var handler = new RecordingHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) {

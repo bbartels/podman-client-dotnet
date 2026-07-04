@@ -52,19 +52,23 @@ public partial class PodmanClient {
     bool tlsVerify = true,
     string? authHeader = null,
     CancellationToken cancellationToken = default
-  ) =>
-    PostLibpodAsync<ArtifactPushResponseDto>(
+  ) {
+    var query = new List<(string Key, string? Value)> {
+      ("retry", retry?.ToString()),
+      ("retryDelay", retryDelay),
+      ("retrydelay", retryDelay),
+      ("tlsVerify", tlsVerify.ToString().ToLowerInvariant()),
+    };
+
+    return PostLibpodAsync<ArtifactPushResponseDto>(
       $"{ArtifactPath(name)}/push",
       "Push artifact",
       PodmanJsonContext.Default.ArtifactPushResponseDto,
-      query: [
-        ("retry", retry?.ToString()),
-        ("retrydelay", retryDelay),
-        ("tlsVerify", tlsVerify.ToString().ToLowerInvariant()),
-      ],
+      query: query,
       registryAuthHeader: authHeader,
       cancellationToken: cancellationToken
     );
+  }
 
   public Task<Result<ArtifactRemoveResponseDto?>> RemoveArtifactAsync(string name, CancellationToken cancellationToken = default) =>
     DeleteJsonAsync<ArtifactRemoveResponseDto>(
