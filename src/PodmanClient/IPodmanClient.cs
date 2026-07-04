@@ -4,6 +4,8 @@
 public interface IPodmanClient
   : IPodmanSystemClient,
     IPodmanContainersClient,
+    IPodmanSecretsClient,
+    IPodmanArtifactsClient,
     IPodmanImagesClient,
     IPodmanVolumesClient,
     IPodmanNetworksClient,

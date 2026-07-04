@@ -9,6 +9,8 @@ using MaksIT.PodmanClientDotNet.Dtos.Image;
 using MaksIT.PodmanClientDotNet.Dtos.Manifest;
 using MaksIT.PodmanClientDotNet.Dtos.Network;
 using MaksIT.PodmanClientDotNet.Dtos.Pod;
+using MaksIT.PodmanClientDotNet.Dtos.Secret;
+using MaksIT.PodmanClientDotNet.Dtos.Artifact;
 using MaksIT.PodmanClientDotNet.Dtos.System;
 using MaksIT.PodmanClientDotNet.Dtos.Volume;
 using MaksIT.PodmanClientDotNet.Models.Container;
@@ -30,6 +32,15 @@ namespace MaksIT.PodmanClientDotNet;
 // Build
 [JsonSerializable(typeof(BuildProgressLineDto))]
 [JsonSerializable(typeof(BuildReportDto))]
+
+// Artifact
+[JsonSerializable(typeof(ArtifactAddResponseDto))]
+[JsonSerializable(typeof(ArtifactInspectDto))]
+[JsonSerializable(typeof(ArtifactListEntryDto))]
+[JsonSerializable(typeof(List<ArtifactListEntryDto>))]
+[JsonSerializable(typeof(ArtifactPullResponseDto))]
+[JsonSerializable(typeof(ArtifactPushResponseDto))]
+[JsonSerializable(typeof(ArtifactRemoveResponseDto))]
 
 // Container
 [JsonSerializable(typeof(ContainerChangesDto))]
@@ -89,6 +100,12 @@ namespace MaksIT.PodmanClientDotNet;
 [JsonSerializable(typeof(PodTopDto))]
 [JsonSerializable(typeof(PodStatsResponseDto))]
 
+// Secret
+[JsonSerializable(typeof(SecretCreateResponseDto))]
+[JsonSerializable(typeof(SecretInspectDto))]
+[JsonSerializable(typeof(SecretListEntryDto))]
+[JsonSerializable(typeof(List<SecretListEntryDto>))]
+
 // System
 [JsonSerializable(typeof(InfoDto))]
 [JsonSerializable(typeof(LibpodPingDto))]
@@ -104,6 +121,8 @@ namespace MaksIT.PodmanClientDotNet;
 [JsonSerializable(typeof(CreateContainerRequest))]
 [JsonSerializable(typeof(CreateExecRequest))]
 [JsonSerializable(typeof(StartExecRequest))]
+[JsonSerializable(typeof(Dictionary<string, string>))]
+[JsonSerializable(typeof(Dictionary<string, string[]>))]
 [JsonSerializable(typeof(NetworkCreateRequest))]
 [JsonSerializable(typeof(NetworkConnectRequest))]
 [JsonSerializable(typeof(NetworkDisconnectRequest))]
