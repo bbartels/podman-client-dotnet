@@ -166,9 +166,9 @@ public partial class PodmanClient {
     string? registryAuthHeader = null,
     CancellationToken cancellationToken = default
   ) =>
-    PostLibpodCoreAsync(libpodPath, operation, responseTypeInfo, content, query, registryAuthHeader, cancellationToken);
+    PostLibpodInternalAsync(libpodPath, operation, responseTypeInfo, content, query, registryAuthHeader, cancellationToken);
 
-  private async Task<Result<TResponse?>> PostLibpodCoreAsync<TResponse>(
+  private async Task<Result<TResponse?>> PostLibpodInternalAsync<TResponse>(
     string libpodPath,
     string operation,
     JsonTypeInfo<TResponse> responseTypeInfo,

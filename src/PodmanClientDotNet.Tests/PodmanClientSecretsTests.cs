@@ -49,7 +49,7 @@ public class PodmanClientSecretsTests {
   }
 }
 
-public class PodmanClientApiTests {
+public class PodmanClientApiWiringTests {
   [Fact]
   public async Task HealthCheckContainerAsync_UsesLibpodHealthcheckRoute() {
     var cancellationToken = TestContext.Current.CancellationToken;
