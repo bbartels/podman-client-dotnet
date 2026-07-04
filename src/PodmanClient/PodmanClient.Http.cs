@@ -163,14 +163,33 @@ public partial class PodmanClient {
     JsonTypeInfo<TResponse> responseTypeInfo,
     HttpContent? content = null,
     IEnumerable<(string Key, string? Value)>? query = null,
+    string? registryAuthHeader = null,
     CancellationToken cancellationToken = default
   ) =>
-    SendAsync<TResponse>(
-      () => _httpClient.PostAsync(LibpodPath(libpodPath) + BuildQuery(query ?? []), content, cancellationToken),
+    PostLibpodCoreAsync(libpodPath, operation, responseTypeInfo, content, query, registryAuthHeader, cancellationToken);
+
+  private async Task<Result<TResponse?>> PostLibpodCoreAsync<TResponse>(
+    string libpodPath,
+    string operation,
+    JsonTypeInfo<TResponse> responseTypeInfo,
+    HttpContent? content,
+    IEnumerable<(string Key, string? Value)>? query,
+    string? registryAuthHeader,
+    CancellationToken cancellationToken
+  ) {
+    using var request = CreateRequest(
+      HttpMethod.Post,
+      LibpodPath(libpodPath) + BuildQuery(query ?? []),
+      content,
+      registryAuthHeader
+    );
+    return await SendAsync<TResponse>(
+      () => _httpClient.SendAsync(request, cancellationToken),
       operation,
       body => string.IsNullOrWhiteSpace(body) ? default : JsonSerializer.Deserialize(body, responseTypeInfo),
       cancellationToken
-    );
+    ).ConfigureAwait(false);
+  }
 
   internal Task<Result<T?>> DeleteJsonAsync<T>(
     string libpodPath,

@@ -1,4 +1,5 @@
-﻿using MaksIT.PodmanClientDotNet.Tests.Archives;
+﻿using MaksIT.PodmanClientDotNet.Models;
+using MaksIT.PodmanClientDotNet.Tests.Archives;
 
 namespace MaksIT.PodmanClientDotNet.Tests;
 
@@ -40,6 +41,46 @@ public class PodmanClientContainersTests {
     finally {
       if (Directory.Exists(tempFolderPath))
         Directory.Delete(tempFolderPath, true);
+    }
+  }
+
+  [Fact]
+  public async Task HealthCheckContainerAsync_Success() {
+    var cancellationToken = TestContext.Current.CancellationToken;
+    string containerName = $"podman-client-health-{Guid.NewGuid()}";
+    string image = "alpine:latest";
+
+    try {
+      await PullImageAsync(image);
+      var createResult = await _client.CreateContainerAsync(
+        name: containerName,
+        image: image,
+        command: new List<string> { "sh", "-c", "sleep 120" },
+        healthConfig: new Schema2HealthConfig {
+          Test = new List<string> { "CMD-SHELL", "exit 0" },
+          Interval = 1_000_000_000,
+          Retries = 1,
+          Timeout = 1_000_000_000,
+        });
+
+      string? containerId = null;
+      PodmanClientTestFixture.AssertSuccess(createResult, value => containerId = value!.Id);
+
+      await StartContainerAsync(containerId!);
+
+      var result = await _client.HealthCheckContainerAsync(containerName, cancellationToken);
+      PodmanClientTestFixture.AssertSuccess(result, value => {
+        Assert.NotNull(value);
+        Assert.False(string.IsNullOrWhiteSpace(value!.Status));
+      });
+
+      await StopContainerAsync(containerId!);
+      await ForceDeleteContainerAsync(containerId!);
+    }
+    catch {
+      var cleanupResult = await _client.ForceDeleteContainerAsync(containerName);
+      _ = cleanupResult;
+      throw;
     }
   }
   #endregion

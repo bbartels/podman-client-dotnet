@@ -12,7 +12,7 @@ The primary goal of `PodmanClient.DotNet` is to simplify the integration of Podm
 
 ## Key Features
 
-- **Full Libpod API surface:** System, containers, images, volumes, networks, pods, exec, build, manifests, and generate/play/kube (see `IPodmanClient` and domain interfaces under `Abstractions/`).
+- **Full Libpod API surface:** System, containers (including healthcheck), images, secrets, artifacts, volumes, networks, pods, exec, build, manifests, and generate/play/kube (see `IPodmanClient` and domain interfaces under `Abstractions/`).
 - **Domain-oriented API:** `IPodmanContainersClient`, `IPodmanImagesClient`, `IPodmanVolumesClient`, and related interfaces; `IPodmanClient` composes them all.
 - **Structured results:** API methods return `MaksIT.Results.Result` / `Result<T>` instead of throwing on Podman HTTP errors.
 - **Dependency injection:** Register with `AddHttpClient` via `AddPodmanClient` and inject `IPodmanClient`.
@@ -150,7 +150,9 @@ Register with `AddPodmanClient` or construct `PodmanClient` manually. Methods re
 | Interface | Coverage |
 |-----------|----------|
 | `IPodmanSystemClient` | ping, version, info, events, disk usage, system prune |
-| `IPodmanContainersClient` | create, list, inspect, lifecycle, logs, stats, archive, attach, commit, checkpoint, prune, … |
+| `IPodmanContainersClient` | create, list, inspect, lifecycle, healthcheck, logs, stats, archive, attach, commit, checkpoint, prune, … |
+| `IPodmanSecretsClient` | create, list, inspect, exists, delete |
+| `IPodmanArtifactsClient` | inspect, list, pull, push, add, extract, delete |
 | `IPodmanImagesClient` | pull, push, list, inspect, tag, untag, search, load, import, export, prune, … |
 | `IPodmanVolumesClient` | create, list, inspect, delete, prune |
 | `IPodmanNetworksClient` | create, list, inspect, delete, connect, disconnect |
