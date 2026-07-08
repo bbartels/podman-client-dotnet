@@ -35,8 +35,14 @@ public sealed class PodInspectDto {
   public string? Namespace { get; set; }
   public string? RestartPolicy { get; set; }
   public ulong? StopTimeout { get; set; }
-  public string[]? Containers { get; set; }
+  public List<PodInspectContainerDto>? Containers { get; set; }
   public string? InfraContainerId { get; set; }
+}
+
+public sealed class PodInspectContainerDto {
+  public string? Id { get; set; }
+  public string? Name { get; set; }
+  public string? State { get; set; }
 }
 /// <summary>
 /// Deserialized Podman libpod API payload (Pod Top).
@@ -60,11 +66,4 @@ public sealed class PodStatsDto {
   public string? NetIO { get; set; }
   public string? BlockIO { get; set; }
   public string? PIDs { get; set; }
-}
-/// <summary>
-/// Deserialized Podman libpod API payload (Pod Stats response).
-/// </summary>
-
-public sealed class PodStatsResponseDto {
-  public Dictionary<string, PodStatsDto>? Stats { get; set; }
 }

@@ -70,6 +70,6 @@ public partial class PodmanClient {
   public Task<Result<PodTopDto?>> TopPodAsync(string name, CancellationToken cancellationToken = default) =>
     GetJsonAsync<PodTopDto>($"/libpod/pods/{Uri.EscapeDataString(name)}/top", "Top pod", PodmanJsonContext.Default.PodTopDto, cancellationToken: cancellationToken);
 
-  public Task<Result<PodStatsResponseDto?>> GetPodsStatsAsync(CancellationToken cancellationToken = default) =>
-    GetJsonAsync<PodStatsResponseDto>("/libpod/pods/stats", "Get pods stats", PodmanJsonContext.Default.PodStatsResponseDto, cancellationToken: cancellationToken);
+  public Task<Result<List<PodStatsDto>?>> GetPodsStatsAsync(CancellationToken cancellationToken = default) =>
+    GetJsonAsync<List<PodStatsDto>>("/libpod/pods/stats", "Get pods stats", PodmanJsonContext.Default.ListPodStatsDto, cancellationToken: cancellationToken);
 }

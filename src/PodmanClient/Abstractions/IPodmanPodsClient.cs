@@ -20,5 +20,5 @@ public interface IPodmanPodsClient {
   Task<Result> UnpausePodAsync(string name, CancellationToken cancellationToken = default);
   Task<Result<PruneReportDto?>> PrunePodsAsync(CancellationToken cancellationToken = default);
   Task<Result<PodTopDto?>> TopPodAsync(string name, CancellationToken cancellationToken = default);
-  Task<Result<PodStatsResponseDto?>> GetPodsStatsAsync(CancellationToken cancellationToken = default);
+  Task<Result<List<PodStatsDto>?>> GetPodsStatsAsync(CancellationToken cancellationToken = default);
 }
