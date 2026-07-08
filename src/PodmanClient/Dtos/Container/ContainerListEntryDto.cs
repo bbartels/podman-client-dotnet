@@ -8,7 +8,7 @@ public sealed class ContainerListEntryDto {
   public string[]? Names { get; set; }
   public string? Image { get; set; }
   public string? ImageID { get; set; }
-  public string? Command { get; set; }
+  public List<string>? Command { get; set; }
   public DateTimeOffset Created { get; set; }
   public string? State { get; set; }
   public string? Status { get; set; }

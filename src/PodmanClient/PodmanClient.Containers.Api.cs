@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using MaksIT.PodmanClientDotNet;
 using MaksIT.PodmanClientDotNet.Dtos.Common;
 using MaksIT.PodmanClientDotNet.Dtos.Container;
@@ -56,14 +58,20 @@ public partial class PodmanClient {
   public Task<Result> UnpauseContainerAsync(string name, CancellationToken cancellationToken = default) =>
     PostWithoutBodyAsync($"{ContainerPath(name)}/unpause", "Unpause container", cancellationToken: cancellationToken);
 
-  public Task<Result<ContainerWaitDto?>> WaitContainerAsync(string name, string? condition = null, CancellationToken cancellationToken = default) =>
-    PostLibpodAsync<ContainerWaitDto>(
-      $"{ContainerPath(name)}/wait",
+  public Task<Result<ContainerWaitDto?>> WaitContainerAsync(string name, string? condition = null, CancellationToken cancellationToken = default) {
+    IEnumerable<(string Key, string? Value)> query = condition is null
+      ? []
+      : [("condition", condition)];
+
+    return SendAsync<ContainerWaitDto>(
+      () => _httpClient.PostAsync(LibpodPath($"{ContainerPath(name)}/wait") + BuildQuery(query), null, cancellationToken),
       "Wait container",
-      PodmanJsonContext.Default.ContainerWaitDto,
-      query: condition is null ? null : [("condition", condition)],
-      cancellationToken: cancellationToken
+      body => new ContainerWaitDto {
+        StatusCode = long.Parse(body.Trim(), CultureInfo.InvariantCulture)
+      },
+      cancellationToken
     );
+  }
 
   public Task<Result<Stream?>> GetContainerLogsAsync(
     string name,
@@ -100,7 +108,7 @@ public partial class PodmanClient {
       cancellationToken
     );
 
-  public Task<Result<Dictionary<string, ContainerStatsDto>?>> GetContainersStatsAsync(
+  public Task<Result<ContainerStatsListResponseDto?>> GetContainersStatsAsync(
     IEnumerable<string>? containers = null,
     bool stream = false,
     CancellationToken cancellationToken = default
@@ -111,7 +119,7 @@ public partial class PodmanClient {
         query.Add(("containers", c));
     }
 
-    return GetJsonAsync<Dictionary<string, ContainerStatsDto>>("/libpod/containers/stats", "Get containers stats", PodmanJsonContext.Default.DictionaryStringContainerStatsDto, query, cancellationToken);
+    return GetJsonAsync<ContainerStatsListResponseDto>("/libpod/containers/stats", "Get containers stats", PodmanJsonContext.Default.ContainerStatsListResponseDto, query, cancellationToken);
   }
 
   public Task<Result<PruneReportDto?>> PruneContainersAsync(string? filters = null, CancellationToken cancellationToken = default) =>

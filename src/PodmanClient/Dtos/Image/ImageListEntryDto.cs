@@ -11,8 +11,8 @@ public sealed class ImageListEntryDto {
   public long Size { get; set; }
   public long SharedSize { get; set; }
   public string? ParentId { get; set; }
-  public string? RepoTags { get; set; }
-  public string? RepoDigests { get; set; }
+  public List<string>? RepoTags { get; set; }
+  public List<string>? RepoDigests { get; set; }
 }
 /// <summary>
 /// Deserialized Podman libpod API payload (Image Search Result).

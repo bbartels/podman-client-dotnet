@@ -41,6 +41,7 @@ namespace MaksIT.PodmanClientDotNet;
 [JsonSerializable(typeof(List<ContainerListEntryDto>))]
 [JsonSerializable(typeof(ContainerMountDto))]
 [JsonSerializable(typeof(ContainerStatsDto))]
+[JsonSerializable(typeof(ContainerStatsListResponseDto))]
 [JsonSerializable(typeof(Dictionary<string, ContainerStatsDto>))]
 [JsonSerializable(typeof(ContainerTopDto))]
 [JsonSerializable(typeof(ContainerWaitDto))]
@@ -88,7 +89,7 @@ namespace MaksIT.PodmanClientDotNet;
 [JsonSerializable(typeof(PodListEntryDto))]
 [JsonSerializable(typeof(List<PodListEntryDto>))]
 [JsonSerializable(typeof(PodTopDto))]
-[JsonSerializable(typeof(PodStatsResponseDto))]
+[JsonSerializable(typeof(List<PodStatsDto>))]
 
 // System
 [JsonSerializable(typeof(InfoDto))]

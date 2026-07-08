@@ -163,7 +163,7 @@ public interface IPodmanContainersClient {
   );
 
   Task<Result<ContainerStatsDto?>> GetContainerStatsAsync(string name, bool stream = false, CancellationToken cancellationToken = default);
-  Task<Result<Dictionary<string, ContainerStatsDto>?>> GetContainersStatsAsync(
+  Task<Result<ContainerStatsListResponseDto?>> GetContainersStatsAsync(
     IEnumerable<string>? containers = null,
     bool stream = false,
     CancellationToken cancellationToken = default

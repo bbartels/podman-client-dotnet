@@ -8,9 +8,14 @@ public sealed class ContainerStatsDto {
   public string? Id { get; set; }
   public ContainerStatsCpuDto? CpuStats { get; set; }
   public ContainerStatsMemoryDto? MemoryStats { get; set; }
-  public ContainerStatsNetworkDto[]? Networks { get; set; }
+  public Dictionary<string, ContainerStatsNetworkDto>? Networks { get; set; }
   public string? Read { get; set; }
   public string? Preread { get; set; }
+}
+
+public sealed class ContainerStatsListResponseDto {
+  public string? Error { get; set; }
+  public List<ContainerStatsDto>? Stats { get; set; }
 }
 /// <summary>
 /// Deserialized Podman libpod API payload (Container Stats Cpu).

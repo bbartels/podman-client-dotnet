@@ -14,7 +14,7 @@ public interface IPodmanClientConfiguration {
   string ServerUrl { get; set; }
 
   /// <summary>
-  /// Podman API version segment used in request paths. Defaults to <c>v1.41</c>.
+  /// Podman API version segment used in request paths. Defaults to <c>v4.0.0</c>.
   /// </summary>
   string ApiVersion { get; set; }
 
