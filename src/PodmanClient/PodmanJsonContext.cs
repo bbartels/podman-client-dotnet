@@ -11,6 +11,7 @@ using MaksIT.PodmanClientDotNet.Dtos.Network;
 using MaksIT.PodmanClientDotNet.Dtos.Pod;
 using MaksIT.PodmanClientDotNet.Dtos.System;
 using MaksIT.PodmanClientDotNet.Dtos.Volume;
+using MaksIT.PodmanClientDotNet.Models;
 using MaksIT.PodmanClientDotNet.Models.Container;
 using MaksIT.PodmanClientDotNet.Models.Exec;
 using MaksIT.PodmanClientDotNet.Models.Network;
@@ -101,14 +102,48 @@ namespace MaksIT.PodmanClientDotNet;
 [JsonSerializable(typeof(List<VolumeListEntryDto>))]
 
 // ----- Request / model types -----
+[JsonSerializable(typeof(AutoUserNsOptions))]
+[JsonSerializable(typeof(BindOptions))]
+[JsonSerializable(typeof(BlockIO))]
+[JsonSerializable(typeof(CPU))]
 [JsonSerializable(typeof(CreateContainerRequest))]
 [JsonSerializable(typeof(CreateExecRequest))]
-[JsonSerializable(typeof(StartExecRequest))]
-[JsonSerializable(typeof(NetworkCreateRequest))]
+[JsonSerializable(typeof(DriverConfig))]
+[JsonSerializable(typeof(HugepageLimit))]
+[JsonSerializable(typeof(IDMapping))]
+[JsonSerializable(typeof(IDMappingOptions))]
+[JsonSerializable(typeof(ImageVolume))]
+[JsonSerializable(typeof(LinuxDevice))]
+[JsonSerializable(typeof(LinuxDeviceCgroup))]
+[JsonSerializable(typeof(LinuxIntelRdt))]
+[JsonSerializable(typeof(LinuxNetwork))]
+[JsonSerializable(typeof(LinuxPersonality))]
+[JsonSerializable(typeof(LinuxResources))]
+[JsonSerializable(typeof(LogConfigLibpod))]
+[JsonSerializable(typeof(Memory))]
+[JsonSerializable(typeof(Mount))]
+[JsonSerializable(typeof(NamedVolume))]
+[JsonSerializable(typeof(Namespace))]
 [JsonSerializable(typeof(NetworkConnectRequest))]
+[JsonSerializable(typeof(NetworkCreateRequest))]
 [JsonSerializable(typeof(NetworkDisconnectRequest))]
+[JsonSerializable(typeof(NetworkPriority))]
+[JsonSerializable(typeof(NetworkSettings))]
+[JsonSerializable(typeof(OverlayVolume))]
+[JsonSerializable(typeof(Pids))]
 [JsonSerializable(typeof(PodCreateRequest))]
+[JsonSerializable(typeof(PortMapping))]
+[JsonSerializable(typeof(POSIXRlimit))]
+[JsonSerializable(typeof(RdmaResource))]
+[JsonSerializable(typeof(Schema2HealthConfig))]
+[JsonSerializable(typeof(SecretProp))]
+[JsonSerializable(typeof(StartExecRequest))]
+[JsonSerializable(typeof(StartupHealthConfig))]
+[JsonSerializable(typeof(ThrottleDevice))]
+[JsonSerializable(typeof(TmpfsOptions))]
 [JsonSerializable(typeof(CreateVolumeRequest))]
+[JsonSerializable(typeof(VolumeOptions))]
+[JsonSerializable(typeof(WeightDevice))]
 [JsonSerializable(typeof(ManifestAddRequestDto))]
 
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.Unspecified, PropertyNameCaseInsensitive = true)]

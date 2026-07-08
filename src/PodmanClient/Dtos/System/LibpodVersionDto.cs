@@ -5,7 +5,11 @@ namespace MaksIT.PodmanClientDotNet.Dtos.System;
 
 public sealed class LibpodVersionDto {
   public VersionComponentsDto? Version { get; set; }
-  public string? Platform { get; set; }
+  public LibpodPlatformDto? Platform { get; set; }
+}
+
+public sealed class LibpodPlatformDto {
+  public string? Name { get; set; }
 }
 /// <summary>
 /// Deserialized Podman libpod API payload (Version Components).

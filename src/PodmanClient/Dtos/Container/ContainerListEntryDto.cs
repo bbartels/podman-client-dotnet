@@ -9,7 +9,7 @@ public sealed class ContainerListEntryDto {
   public string? Image { get; set; }
   public string? ImageID { get; set; }
   public string? Command { get; set; }
-  public long Created { get; set; }
+  public DateTimeOffset Created { get; set; }
   public string? State { get; set; }
   public string? Status { get; set; }
   public string? Pod { get; set; }
