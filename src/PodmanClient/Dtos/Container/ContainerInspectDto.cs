@@ -21,7 +21,7 @@ public sealed class ContainerInspectDto {
   public string? Driver { get; set; }
   public string? OCIConfigPath { get; set; }
   public string? OCIRuntime { get; set; }
-  public long Created { get; set; }
+  public DateTimeOffset Created { get; set; }
 }
 /// <summary>
 /// Deserialized Podman libpod API payload (Container State).

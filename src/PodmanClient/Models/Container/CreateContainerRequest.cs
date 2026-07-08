@@ -1,10 +1,13 @@
 
+using System.Text.Json.Serialization;
+
 namespace MaksIT.PodmanClientDotNet.Models.Container;
 
 /// <summary>
 /// Libpod API request body for Create Container request.
 /// </summary>
 
+[JsonConverter(typeof(CreateContainerRequestJsonConverter))]
 public class CreateContainerRequest {
   public Dictionary<string, string>? Annotations { get; set; }
   public string? ApparmorProfile { get; set; }

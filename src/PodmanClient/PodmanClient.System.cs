@@ -5,7 +5,12 @@ using MaksIT.Results;
 
 public partial class PodmanClient {
   public Task<Result<LibpodPingDto?>> PingAsync(CancellationToken cancellationToken = default) =>
-    GetJsonAsync<LibpodPingDto>("/libpod/_ping", "Ping", PodmanJsonContext.Default.LibpodPingDto, cancellationToken: cancellationToken);
+    SendAsync<LibpodPingDto>(
+      () => _httpClient.GetAsync(LibpodPath("/libpod/_ping"), cancellationToken),
+      "Ping",
+      _ => new LibpodPingDto { Ping = true },
+      cancellationToken
+    );
 
   public Task<Result<LibpodVersionDto?>> GetVersionAsync(CancellationToken cancellationToken = default) =>
     GetJsonAsync<LibpodVersionDto>("/libpod/version", "Get version", PodmanJsonContext.Default.LibpodVersionDto, cancellationToken: cancellationToken);
